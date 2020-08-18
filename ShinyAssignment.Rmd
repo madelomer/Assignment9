@@ -27,7 +27,7 @@ knitr::opts_chunk$set(echo = FALSE)
 - You can Choose columns  that you want: Cylinders, Horse Power and Transmission Quater Mile Time.  
   
 Example in Shiny Apps:- https://madel.shinyapps.io/assignmentapp/    
-The code in Github :- 
+The code in Github :- https://github.com/madelomer/Assignment9  
 
 ## Interactive Application
 

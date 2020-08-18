@@ -55,3 +55,15 @@ http://slidify.org/publish.html
 Rstudio presenter has a button to publish directly to Rpubs https://support.rstudio.com/hc/en-us/articles/200714023-Displaying-and-Distributing-Presentations. If you are using Rpubs, put in the link to the presentation into the submission box as a http:// link not a https:// link.  
 
 You can also publish using both formats to github manually using gh-pages, though your github branch must have a .nojekyll fle and be on a branch names gh-pages. There's more on gh-pages here https://pages.github.com/ and there is a video lecture outlining how to do this.  
+
+## Our Solution 
+
+
+- We using the mtcars dataset to cluster between two columns.  
+- The user can select between multiple mtcars columns.  
+- The user can select the number of clusters (1 to 15).  
+- Every cluster have different color.   
+- You can Choose columns  that you want: Cylinders, Horse Power and Transmission Quater Mile Time.  
+  
+Example in Shiny Apps:- https://madel.shinyapps.io/assignmentapp/    
+The code in Github :- https://github.com/madelomer/Assignment9  
