@@ -1,0 +1,105 @@
+---
+title: "Shiny Application and Reproducible Pitch"
+author: "Mohamed Adel Omar"
+date: "8/18/2020"
+output: ioslides_presentation
+runtime: shiny
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+<!-- ## Assignment  -->
+
+<!-- - Write a shiny application with associated supporting documentation.   -->
+<!-- - The documentation should be thought of as whatever a user will need to get started using your application.   -->
+<!-- - Deploy the application on Rstudio's shiny server.   -->
+<!-- - Share the application link by pasting it into the provided text box.    -->
+<!-- - Share your server.R and ui.R code on github document.   -->
+
+## Shiny Application 
+
+- We using the mtcars dataset to cluster between two columns.  
+- The user can select between multiple mtcars columns.  
+- The user can select the number of clusters (1 to 15).  
+- Every cluster have different color.   
+- You can Choose columns  that you want: Cylinders, Horse Power and Transmission Quater Mile Time.  
+  
+Example in Shiny Apps:- https://madel.shinyapps.io/assignmentapp/    
+The code in Github :- 
+
+## Interactive Application
+
+```{r mtcars}
+
+vars <- setdiff(names(mtcars), "Species")
+
+pageWithSidebar(
+  headerPanel('mtcars k-means clustering'),
+  sidebarPanel(
+    selectInput('xcol', 'X Variable', vars),
+    selectInput('ycol', 'Y Variable', vars, selected = vars[[2]]),
+    numericInput('clusters', 'Cluster count', 3, min = 1, max = 15)
+  ),
+  mainPanel(
+    plotOutput('plot1')
+  )
+)
+
+  selectedData <- reactive({
+    mtcars[, c(input$xcol, input$ycol)]
+  })
+  
+  clusters <- reactive({
+    kmeans(selectedData(), input$clusters)
+  })
+  output$plot1 <- renderPlot({
+    palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3",
+              "#FF7F00", "#FFFF33", "#A65628", "#F781BF", "#999999",
+              "#DAF7A6", "#FFC300", "#FF5733","#C70039","#900C3F","#581845"))
+    
+    par(mar = c(5.1, 4.1, 0, 1))
+    plot(selectedData(),
+         col = clusters()$cluster,
+         pch = 20, cex = 3)
+    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
+  })
+  
+
+```
+
+
+##  UI code 
+
+```{r ui, eval=FALSE,echo=TRUE}
+
+vars <- setdiff(names(mtcars), "Species")
+
+pageWithSidebar(
+  headerPanel('mtcars k-means clustering'),
+  sidebarPanel(
+    selectInput('xcol', 'X Variable', vars),
+    selectInput('ycol', 'Y Variable', vars, selected = vars[[2]]),
+    numericInput('clusters', 'Cluster count', 3, min = 1, max = 15)
+  ),
+  mainPanel(
+    plotOutput('plot1')
+  )
+)
+```
+
+## Server Code
+```{r server, eval=FALSE,echo=TRUE}
+ selectedData <- reactive({ mtcars[, c(input$xcol, input$ycol)]})
+  clusters <- reactive({ kmeans(selectedData(), input$clusters) })
+  output$plot1 <- renderPlot({
+    palette(c("#E41A1C", "#377EB8", "#4DAF4A", "#984EA3","#FF7F00", "#FFFF33", "#A65628", "#F781BF","#999999","#DAF7A6", "#FFC300", "#FF5733","#C70039", "#900C3F","#581845"))
+    par(mar = c(5.1, 4.1, 0, 1))
+    plot(selectedData(),
+         col = clusters()$cluster, pch = 20, cex = 3)
+    points(clusters()$centers, pch = 4, cex = 4, lwd = 4)
+  })
+```
+**$Thank$**      **$You$**
+
